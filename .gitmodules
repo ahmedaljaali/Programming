@@ -1,0 +1,3 @@
+[submodule "C++/VulkanEngine"]
+	path = C++/VulkanEngine
+	url = git@github.com:IZenithy/VulkanEngine.git
