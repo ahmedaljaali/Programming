@@ -1,9 +1,9 @@
 cmake_minimum_required(VERSION 3.20)
-project(Train VERSION 1.0)
+project(Train VERSION 1.0 LANGUAGES CXX)
+include(ExternalProject)
 
 #--------------------------------------------------------------------#
 #                          Get source files                          #
-
 
 file(GLOB_RECURSE SOURCE_FILES ${CMAKE_CURRENT_SOURCE_DIR}/src/*.cc)
 #--------------------------------------------------------------------#
@@ -13,13 +13,13 @@ add_executable(${PROJECT_NAME} ${SOURCE_FILES})
 #--------------------------------------------------------------------#
 #                        Include directories                         #
 
-
-target_include_directories(${PROJECT_NAME} PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/inc)
+target_include_directories(${PROJECT_NAME} PUBLIC
+    ${CMAKE_CURRENT_SOURCE_DIR}/inc
+)
 #--------------------------------------------------------------------#
 
 #--------------------------------------------------------------------#
 #                           Set properties                           #
-
 
 set_target_properties(${PROJECT_NAME} PROPERTIES
     # Specify directories
@@ -31,13 +31,12 @@ set_target_properties(${PROJECT_NAME} PROPERTIES
     CXX_STANDARD 20
     CXX_STANDARD_REQUIRED ON
 
-    OUTPUT_NAME "Train"
+    OUTPUT_NAME ${PROJECT_NAME}
 )
 #--------------------------------------------------------------------#
 
 #--------------------------------------------------------------------#
 #                              Use mold                              #
-
 
 if(NOT WIN32)
     target_link_options(${PROJECT_NAME} PUBLIC -fuse-ld=mold)
@@ -47,16 +46,19 @@ endif()
 #--------------------------------------------------------------------#
 #                               Debug                                #
 
+SET(CMAKE_BUILD_TYPE Debug)
 
-SET(CMAKE_BUILD_TYPE debug)
-SET(CMAKE_CXX_FLAGS_DEBUG "-gfull -ggdb3 -O0 -Weverything -Wno-c++98-compat -Wno-c++98-compat-pedantic -Wno-padded")
+# For memory
+# SET(CMAKE_CXX_FLAGS_DEBUG "-gfull -ggdb3 -O0 -Weverything -Wno-c++98-compat -Wno-c++98-compat-pedantic -Wno-padded -Wno-documentation -Wno-documentation-unknown-command -fsanitize=memory -fno-omit-frame-pointer -fno-optimize-sibling-calls -fsanitize-memory-track-origins=2")
+
+# For address
+SET(CMAKE_CXX_FLAGS_DEBUG "-gfull -ggdb3 -O0 -Weverything -Wno-c++98-compat -Wno-c++98-compat-pedantic -Wno-padded -Wno-documentation -Wno-documentation-unknown-command -fsanitize=address -fno-omit-frame-pointer -fno-optimize-sibling-calls")
 #-Werror Treat warnings as errors
 #--------------------------------------------------------------------#
 
 #--------------------------------------------------------------------#
 #                              Release                               #
 
-
-# SET(CMAKE_BUILD_TYPE release)
+# SET(CMAKE_BUILD_TYPE Release)
 SET(CMAKE_CXX_FLAGS_RELEASE "-O3")
 #--------------------------------------------------------------------#
