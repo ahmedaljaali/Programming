@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.20)
+cmake_minimum_required(VERSION 3.24)
 project(Train VERSION 1.0 LANGUAGES CXX)
 include(ExternalProject)
 
@@ -49,10 +49,10 @@ endif()
 SET(CMAKE_BUILD_TYPE Debug)
 
 # For memory
-# SET(CMAKE_CXX_FLAGS_DEBUG "-gfull -ggdb3 -O0 -Weverything -Wno-c++98-compat -Wno-c++98-compat-pedantic -Wno-padded -Wno-documentation -Wno-documentation-unknown-command -fsanitize=memory -fno-omit-frame-pointer -fno-optimize-sibling-calls -fsanitize-memory-track-origins=2")
+# SET(CMAKE_CXX_FLAGS_DEBUG "-gfull -ggdb3 -pedantic-errors -O0 -Weverything -Wno-c++98-compat -Wno-c++98-compat-pedantic -Wno-padded -Wno-documentation -Wno-documentation-unknown-command -fsanitize=memory -fno-omit-frame-pointer -fno-optimize-sibling-calls -fsanitize-memory-track-origins=2")
 
 # For address
-SET(CMAKE_CXX_FLAGS_DEBUG "-gfull -ggdb3 -O0 -Weverything -Wno-c++98-compat -Wno-c++98-compat-pedantic -Wno-padded -Wno-documentation -Wno-documentation-unknown-command -fsanitize=address -fno-omit-frame-pointer -fno-optimize-sibling-calls")
+SET(CMAKE_CXX_FLAGS_DEBUG "-gfull -ggdb3 -pedantic-errors -O0 -Weverything -Wno-c++98-compat -Wno-c++98-compat-pedantic -Wno-padded -Wno-documentation -Wno-documentation-unknown-command -fsanitize=address -fno-omit-frame-pointer -fno-optimize-sibling-calls")
 #-Werror Treat warnings as errors
 #--------------------------------------------------------------------#
 
@@ -60,5 +60,5 @@ SET(CMAKE_CXX_FLAGS_DEBUG "-gfull -ggdb3 -O0 -Weverything -Wno-c++98-compat -Wno
 #                              Release                               #
 
 # SET(CMAKE_BUILD_TYPE Release)
-SET(CMAKE_CXX_FLAGS_RELEASE "-O3")
+SET(CMAKE_CXX_FLAGS_RELEASE "-O3 -DNDEBUG")
 #--------------------------------------------------------------------#
